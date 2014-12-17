@@ -29,14 +29,23 @@ namespace HtmlParser
             {
                 foreach (PttClass pClass in cService.parseClass(doc))
                 {
-                    foreach (PttGroup pGroup in gService.parseGroup(
+                    Console.WriteLine("{0} : {1} - {2}", pClass.code, pClass.name.Trim(), pClass.desc);
+                    PttGroupCollection collection = gService.parseGroup(
                         Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, pClass.code),
-                            Encoding.Default)))
+                            Encoding.Default));
+                    
+                    foreach (PttGroup pGroup in collection.groups)
                     {
                         Console.WriteLine("{0} : {1} - {2}", pGroup.code, pGroup.name.Trim(), pGroup.desc);
                     }
                     Console.WriteLine("---------------------------------------------");
-                    Console.WriteLine("{0} : {1} - {2}", pClass.code, pClass.name.Trim(), pClass.desc);
+                    foreach (PttBoard pBoard in collection.boards)
+                    {
+                        Console.WriteLine("{0} : {1} - {2}", pBoard.code, pBoard.name.Trim(), pBoard.desc);
+                    }
+
+                    
+                    Console.WriteLine("*********************************************");
                 }
             }
             catch(Exception)

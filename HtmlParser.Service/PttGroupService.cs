@@ -14,7 +14,7 @@ namespace HtmlParser.Service
         /// <summary>將分類看板頁序列化為物件</summary>
         /// <param name="doc">原始資料</param>
         /// <returns>分類看版物件列表</returns>
-        List<PttGroup> parseGroup(HtmlDocument doc);
+        PttGroupCollection parseGroup(HtmlDocument doc);
     }
 
     public class PttGroupService : IPttGroupService
@@ -22,43 +22,67 @@ namespace HtmlParser.Service
 
         #region IPttGroupService Members
 
-        public List<PttGroup> parseGroup(HtmlDocument doc)
+        public PttGroupCollection parseGroup(HtmlDocument doc)
         {
-            List<PttGroup> result = new List<PttGroup>();
+            PttGroupCollection result = new PttGroupCollection();
             var collection = doc.DocumentNode.SelectNodes("//*[@id=\"prodlist\"]/dl/dd");
 
             foreach (HtmlNode node in collection.Elements())
             {
-                PttGroup pGroup = new PttGroup();
-                foreach (HtmlNode cNode in node.ChildNodes)
+                if (node.ChildNodes["img"].Attributes["src"].Value.IndexOf("f.gif") > -1)
                 {
-                    if (!Regex.IsMatch(cNode.InnerText, @"^\s+$") || cNode.Attributes.Count > 0)
+                    PttBoard pBoard = new PttBoard();
+                    foreach (HtmlNode cNode in node.ChildNodes)
                     {
-                        //tag name
-                        switch (cNode.Name)
+                        if (!Regex.IsMatch(cNode.InnerText, @"^\s+$") || cNode.Attributes.Count > 0)
                         {
-                            case "img":
-                                {
-                                    cNode.Attributes["src"].Value.IndexOf("folder.gif");
-                                    cNode.Attributes["src"].Value.IndexOf("f.gif");
-                                }
-                                break;
-                            case "a":
-                                {
-                                    pGroup.code = cNode.Attributes["href"].Value.Split('/').Last().Split('.').First();
-                                    pGroup.name = cNode.InnerText;
-                                    break;
-                                }
-                            case "text":
-                                {
-                                    pGroup.desc += cNode.InnerText;
-                                    break;
-                                }
+                            //tag name
+                            switch (cNode.Name)
+                            {
+                                case "a":
+                                    {
+                                        pBoard.code = cNode.Attributes["href"].Value.Split('/').Last().Split('.').First();
+                                        pBoard.name = cNode.InnerText;
+                                        break;
+                                    }
+                                case "text":
+                                    {
+                                        pBoard.desc += cNode.InnerText;
+                                        break;
+                                    }
 
+                            }
                         }
                     }
+                    result.boards.Add(pBoard);
                 }
-                result.Add(pGroup);
+                else
+                {
+                    PttGroup pGroup = new PttGroup();
+                    foreach (HtmlNode cNode in node.ChildNodes)
+                    {
+                        if (!Regex.IsMatch(cNode.InnerText, @"^\s+$") || cNode.Attributes.Count > 0)
+                        {
+                            //tag name
+                            switch (cNode.Name)
+                            {
+                                case "a":
+                                    {
+                                        pGroup.code = cNode.Attributes["href"].Value.Split('/').Last().Split('.').First();
+                                        pGroup.name = cNode.InnerText;
+                                        break;
+                                    }
+                                case "text":
+                                    {
+                                        pGroup.desc += cNode.InnerText;
+                                        break;
+                                    }
+
+                            }
+                        }
+                    }
+                    result.groups.Add(pGroup);
+                }
             }
 
             return result;
