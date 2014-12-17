@@ -13,6 +13,7 @@ namespace HtmlParser
     public class Program
     {
         private const string PTT_URL_FORMAT = "https://www.ptt.cc/bbs/{0}.html";
+        private const string PTT_BOARD_URL_FORMAT = "https://www.ptt.cc/bbs/{0}/index.html";
         public static void Main(string[] args)
         {
             HtmlDocument doc = Utility.downLoadHtmlDoc("https://www.ptt.cc/bbs/index.html", Encoding.Default);
@@ -25,8 +26,10 @@ namespace HtmlParser
             
             IPttClassService cService = new PttClassService();
             IPttGroupService gService = new PttGroupService();
+            IPttBoardService bService = new PttBoardService();
             try
             {
+                /*
                 foreach (PttClass pClass in cService.parseClass(doc))
                 {
                     Console.WriteLine("{0} : {1} - {2}", pClass.code, pClass.name.Trim(), pClass.desc);
@@ -46,6 +49,14 @@ namespace HtmlParser
 
                     
                     Console.WriteLine("*********************************************");
+                }
+                */
+                List<PttBoard> boards = bService.parse(
+                        Utility.downLoadHtmlDoc(string.Format(PTT_BOARD_URL_FORMAT, "NBA"),
+                            Encoding.UTF8));
+                foreach(PttBoard board in boards)
+                {
+
                 }
             }
             catch(Exception)
