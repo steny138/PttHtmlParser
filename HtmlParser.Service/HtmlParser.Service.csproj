@@ -43,9 +43,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PttClassService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlParser.Model\HtmlParser.Model.csproj">
+      <Project>{9d0e9625-8298-405d-962b-ec464d8d547d}</Project>
+      <Name>HtmlParser.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlParser.Repository\HtmlParser.Repository.csproj">
+      <Project>{b462e025-8a46-4772-b7a3-ce091ffa3a81}</Project>
+      <Name>HtmlParser.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

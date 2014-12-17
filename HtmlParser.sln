@@ -2,10 +2,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser.Console", "HtmlParser\HtmlParser.Console.csproj", "{AE1D1A66-8107-4C40-8E35-29B4AD5427E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D069429-A913-434F-B33D-F97ED0A16DF2} = {2D069429-A913-434F-B33D-F97ED0A16DF2}
+		{E70CAA49-5C7D-455B-AC01-A90A7FC7F1E9} = {E70CAA49-5C7D-455B-AC01-A90A7FC7F1E9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser.Model", "HtmlParser.Model\HtmlParser.Model.csproj", "{9D0E9625-8298-405D-962B-EC464D8D547D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser.Service", "HtmlParser.Service\HtmlParser.Service.csproj", "{2D069429-A913-434F-B33D-F97ED0A16DF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D0E9625-8298-405D-962B-EC464D8D547D} = {9D0E9625-8298-405D-962B-EC464D8D547D}
+		{B462E025-8A46-4772-B7A3-CE091FFA3A81} = {B462E025-8A46-4772-B7A3-CE091FFA3A81}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlParser.Repository", "HtmlParser.Repository\HtmlParser.Repository.csproj", "{B462E025-8A46-4772-B7A3-CE091FFA3A81}"
 EndProject

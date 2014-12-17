@@ -7,8 +7,8 @@
     <ProjectGuid>{AE1D1A66-8107-4C40-8E35-29B4AD5427E7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HtmlParser</RootNamespace>
-    <AssemblyName>HtmlParser</AssemblyName>
+    <RootNamespace>HtmlParser.Console</RootNamespace>
+    <AssemblyName>HtmlParser.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -54,6 +54,27 @@
   <ItemGroup>
     <Folder Include="Controller\" />
     <Folder Include="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HtmlParser.Core\HtmlParser.Core.csproj">
+      <Project>{e70caa49-5c7d-455b-ac01-a90a7fc7f1e9}</Project>
+      <Name>HtmlParser.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlParser.Model\HtmlParser.Model.csproj">
+      <Project>{9d0e9625-8298-405d-962b-ec464d8d547d}</Project>
+      <Name>HtmlParser.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlParser.Repository\HtmlParser.Repository.csproj">
+      <Project>{b462e025-8a46-4772-b7a3-ce091ffa3a81}</Project>
+      <Name>HtmlParser.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HtmlParser.Service\HtmlParser.Service.csproj">
+      <Project>{2d069429-a913-434f-b33d-f97ed0a16df2}</Project>
+      <Name>HtmlParser.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
