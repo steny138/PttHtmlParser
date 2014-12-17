@@ -25,5 +25,10 @@ namespace HtmlParser.Core
             }
             return doc;
         }
+
+        public static void writeLog(string content)
+        {
+
+        }
     }
 }

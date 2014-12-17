@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace HtmlParser.Model
 {
-    class PttGroup
+    public class PttGroup
     {
         public int id { get; set; }
+        public string code { get; set; }
         public string name { get; set; }
         public string desc { get; set; }
     }
