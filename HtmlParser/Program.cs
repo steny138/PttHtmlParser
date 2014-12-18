@@ -27,6 +27,7 @@ namespace HtmlParser
             IPttClassService cService = new PttClassService();
             IPttGroupService gService = new PttGroupService();
             IPttBoardService bService = new PttBoardService();
+            IPttThemeService tService = new PttThemeService();
             try
             {
                 /*
@@ -50,12 +51,16 @@ namespace HtmlParser
                     
                     Console.WriteLine("*********************************************");
                 }
-                */
+                
                 List<PttTheme> themes = bService.parse("NBA", 10);
                 foreach (PttTheme theme in themes)
                 {
 
                 }
+                 * */
+                PttTheme theme = tService.parse("NBA", "M.1418823312.A.FD5");
+                Console.WriteLine(theme.content);
+                Console.WriteLine("push count : {0}", theme.pushContents.Count);
             }
             catch(Exception ex)
             {
