@@ -51,15 +51,13 @@ namespace HtmlParser
                     Console.WriteLine("*********************************************");
                 }
                 */
-                List<PttBoard> boards = bService.parse(
-                        Utility.downLoadHtmlDoc(string.Format(PTT_BOARD_URL_FORMAT, "NBA"),
-                            Encoding.UTF8));
-                foreach(PttBoard board in boards)
+                List<PttTheme> themes = bService.parse("NBA", 10);
+                foreach (PttTheme theme in themes)
                 {
 
                 }
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 Console.WriteLine("發生錯誤!!");
             }

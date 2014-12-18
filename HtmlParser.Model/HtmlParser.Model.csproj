@@ -42,6 +42,7 @@
     <Compile Include="Models\PttBoard.cs" />
     <Compile Include="Models\PttClass.cs" />
     <Compile Include="Models\PttMenu.cs" />
+    <Compile Include="Models\PttTheme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\PttGroup.cs" />
   </ItemGroup>

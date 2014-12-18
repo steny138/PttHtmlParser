@@ -15,13 +15,15 @@ namespace HtmlParser.Model
             this.name = string.Empty;
             this.desc = string.Empty;
             this.manager = string.Empty;
-            this.popularity = 0;
+            this.popularity = string.Empty;
+            this.issueDate = DateTime.MinValue;
         }
         public int id { get; set; }
         public string code { get; set; }
         public string name { get; set; }
         public string desc { get; set; }
         public string manager { get; set; }
-        public int popularity { get; set; }
+        public string popularity { get; set; }
+        public DateTime issueDate { get; set; }
     }
 }
