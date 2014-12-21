@@ -58,9 +58,19 @@ namespace HtmlParser
 
                 }
                  * */
-                PttTheme theme = tService.parse("NBA", "M.1418823312.A.FD5");
-                Console.WriteLine(theme.content);
-                Console.WriteLine("push count : {0}", theme.pushContents.Count);
+
+                List<PttTheme> themes = bService.parseFromNewThemeUntilPageCount("NBA", 1);
+                foreach (PttTheme theme in themes)
+                {
+                    var newTheme = tService.parse(theme);
+                    Console.WriteLine("*********************************************");
+                    Console.WriteLine(newTheme.title);
+                    Console.WriteLine(newTheme.content);
+                    Console.WriteLine("*********************************************");
+                }
+                //PttTheme theme = tService.parse("NBA", "M.1418823312.A.FD5");
+                //Console.WriteLine(theme.content);
+                //Console.WriteLine("push count : {0}", theme.pushContents.Count);
             }
             catch(Exception ex)
             {

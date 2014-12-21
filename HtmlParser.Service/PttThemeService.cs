@@ -44,14 +44,24 @@ namespace HtmlParser.Service
                 if (doc != null)
                 {
                     HtmlNode mainNode = doc.DocumentNode.SelectSingleNode("//*[@id=\"main-content\"]");
-                    initTheme.author = mainNode.SelectSingleNode("div[@class='article-metaline'][1]/span[@class='article-meta-value']").InnerText; //author
-                    initTheme.title = mainNode.SelectSingleNode("div[@class='article-metaline'][2]/span[@class='article-meta-value']").InnerText; //title
-                    initTheme.issueDate = parseExact(mainNode.SelectSingleNode("div[@class='article-metaline'][3]/span[@class='article-meta-value']").InnerText); //time
+                    if (mainNode.SelectNodes("div[@class='article-metaline']") != null)
+                    {
+                        initTheme.author = mainNode.SelectSingleNode("div[@class='article-metaline'][1]/span[@class='article-meta-value']").InnerText; //author
+                        initTheme.title = mainNode.SelectSingleNode("div[@class='article-metaline'][2]/span[@class='article-meta-value']").InnerText; //title
+                        initTheme.issueDate = parseExact(mainNode.SelectSingleNode("div[@class='article-metaline'][3]/span[@class='article-meta-value']").InnerText); //time
+                    }
 
-                    //content
-                    initTheme.content = mainNode.ChildNodes["#text"].InnerText;
+                    //content\
+                    var nos = mainNode.ChildNodes.Where(x => !checkNode(x));
 
-                    initTheme.url = mainNode.SelectSingleNode("span[@class='f2'][2]/a").InnerText;
+                    initTheme.content = nos
+                            .Select(x=>x.InnerText)
+                            .Aggregate((current, next) => current + System.Environment.NewLine + next);
+
+                    if (mainNode.SelectNodes("span[@class='f2'][a]") != null)
+                    {
+                        initTheme.url = mainNode.SelectSingleNode("span[@class='f2'][a]/a").InnerText;
+                    }
 
                     //推文
                     foreach(HtmlNode pushNode in mainNode.SelectNodes("div[@class='push']").AsEnumerable())
@@ -66,11 +76,19 @@ namespace HtmlParser.Service
                 }
 
             }
-            catch (NullReferenceException)
+            catch (NullReferenceException ex)
             {
                 return null;
             }
             return initTheme;
+        }
+
+        private bool checkNode(HtmlNode x)
+        {
+            return x.Attributes["class"] != null &&
+                        (x.Attributes["class"].Value.Contains("article-metaline") ||
+                        x.Attributes["class"].Value.Contains("f2") ||
+                        x.Attributes["class"].Value.Contains("push"));
         }
 
         private DateTime parseExact(string strDate)
