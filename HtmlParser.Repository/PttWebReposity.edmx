@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HtmlParser.Respository.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="HtmlParserRespositoryStoreContainer">
+          <EntitySet Name="class" EntityType="HtmlParser.Respository.Store.class" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="group" EntityType="HtmlParser.Respository.Store.group" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="menu" EntityType="HtmlParser.Respository.Store.menu" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="muti_code" EntityType="HtmlParser.Respository.Store.muti_code" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="user" EntityType="HtmlParser.Respository.Store.user" store:Type="Tables" Schema="ptt_bigdata" />
+        </EntityContainer>
+        <EntityType Name="class">
+          <Key>
+            <PropertyRef Name="class_Id" />
+          </Key>
+          <Property Name="class_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="class_name" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="class_dname" Type="varchar" MaxLength="100" />
+          <Property Name="class_type" Type="varchar" MaxLength="10" />
+          <Property Name="class_attr" Type="varchar" MaxLength="100" />
+          <Property Name="class_desc" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="group_type" Type="varchar" MaxLength="10" />
+          <Property Name="group_name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="group_dname" Type="varchar" MaxLength="100" />
+          <Property Name="group_master" Type="varchar" MaxLength="25" />
+          <Property Name="group_desc" Type="varchar" MaxLength="400" />
+          <Property Name="group_photo" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="menu_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="menu_type" Type="varchar" MaxLength="10" />
+          <Property Name="menu_name" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="menu_dname" Type="varchar" MaxLength="100" />
+          <Property Name="menu_master" Type="varchar" MaxLength="25" />
+          <Property Name="menu_desc" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="muti_code">
+          <Key>
+            <PropertyRef Name="code_type" />
+            <PropertyRef Name="code_code" />
+            <PropertyRef Name="code_sequ" />
+          </Key>
+          <Property Name="code_type" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="code_code" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="code_sequ" Type="smallint" Nullable="false" />
+          <Property Name="code_name" Type="varchar" MaxLength="45" />
+          <Property Name="code_desc" Type="varchar" MaxLength="400" />
+          <Property Name="code_mstaff" Type="varchar" MaxLength="25" />
+          <Property Name="code_mdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="varchar" Nullable="false" MaxLength="25" />
+          <Property Name="username" Type="varchar" MaxLength="16" />
+          <Property Name="password" Type="char" MaxLength="32" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="create_time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="create_staff" Type="varchar" MaxLength="25" />
+          <Property Name="modify_time" Type="datetime" StoreGeneratedPattern="Identity" />
+          <Property Name="modify_staff" Type="varchar" MaxLength="25" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HtmlParser.Respository" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PttBigdataEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="class" EntityType="HtmlParser.Respository.class" />
+          <EntitySet Name="group" EntityType="HtmlParser.Respository.group" />
+          <EntitySet Name="menu" EntityType="HtmlParser.Respository.menu" />
+          <EntitySet Name="muti_code" EntityType="HtmlParser.Respository.muti_code" />
+          <EntitySet Name="user" EntityType="HtmlParser.Respository.user" />
+        </EntityContainer>
+        <EntityType Name="class">
+          <Key>
+            <PropertyRef Name="class_Id" />
+          </Key>
+          <Property Name="class_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="class_name" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="class_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="class_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="class_attr" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="class_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="group_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="group_name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="group_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="group_master" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="group_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+          <Property Name="group_photo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="menu_id" />
+          </Key>
+          <Property Name="menu_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="menu_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="menu_name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="menu_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="menu_master" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="menu_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="muti_code">
+          <Key>
+            <PropertyRef Name="code_type" />
+            <PropertyRef Name="code_code" />
+            <PropertyRef Name="code_sequ" />
+          </Key>
+          <Property Name="code_type" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="code_code" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="code_sequ" Type="Int16" Nullable="false" />
+          <Property Name="code_name" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
+          <Property Name="code_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+          <Property Name="code_mstaff" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="code_mdate" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="String" Nullable="false" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="username" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="create_time" Type="DateTime" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="create_staff" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+          <Property Name="modify_time" Type="DateTime" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="modify_staff" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HtmlParserRespositoryStoreContainer" CdmEntityContainer="PttBigdataEntities">
+          <EntitySetMapping Name="class">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.class">
+              <MappingFragment StoreEntitySet="class">
+                <ScalarProperty Name="class_Id" ColumnName="class_Id" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="class_dname" ColumnName="class_dname" />
+                <ScalarProperty Name="class_type" ColumnName="class_type" />
+                <ScalarProperty Name="class_attr" ColumnName="class_attr" />
+                <ScalarProperty Name="class_desc" ColumnName="class_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.group">
+              <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="group_type" ColumnName="group_type" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="group_dname" ColumnName="group_dname" />
+                <ScalarProperty Name="group_master" ColumnName="group_master" />
+                <ScalarProperty Name="group_desc" ColumnName="group_desc" />
+                <ScalarProperty Name="group_photo" ColumnName="group_photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menu">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.menu">
+              <MappingFragment StoreEntitySet="menu">
+                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
+                <ScalarProperty Name="menu_type" ColumnName="menu_type" />
+                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
+                <ScalarProperty Name="menu_dname" ColumnName="menu_dname" />
+                <ScalarProperty Name="menu_master" ColumnName="menu_master" />
+                <ScalarProperty Name="menu_desc" ColumnName="menu_desc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="muti_code">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.muti_code">
+              <MappingFragment StoreEntitySet="muti_code">
+                <ScalarProperty Name="code_type" ColumnName="code_type" />
+                <ScalarProperty Name="code_code" ColumnName="code_code" />
+                <ScalarProperty Name="code_sequ" ColumnName="code_sequ" />
+                <ScalarProperty Name="code_name" ColumnName="code_name" />
+                <ScalarProperty Name="code_desc" ColumnName="code_desc" />
+                <ScalarProperty Name="code_mstaff" ColumnName="code_mstaff" />
+                <ScalarProperty Name="code_mdate" ColumnName="code_mdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="create_time" ColumnName="create_time" />
+                <ScalarProperty Name="create_staff" ColumnName="create_staff" />
+                <ScalarProperty Name="modify_time" ColumnName="modify_time" />
+                <ScalarProperty Name="modify_staff" ColumnName="modify_staff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
