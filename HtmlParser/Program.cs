@@ -18,7 +18,8 @@ namespace HtmlParser.Console
         {
             //Initital
             AutoMapperConfig.Configure();
-            
+            AutofacConfig.Bootstrapper();
+
             IPttClassService cService = new PttClassService();
             IPttGroupService gService = new PttGroupService();
             IPttBoardService bService = new PttBoardService();

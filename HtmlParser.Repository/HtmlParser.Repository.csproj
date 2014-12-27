@@ -75,6 +75,8 @@
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IAutoMapper.cs" />
+    <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IUnitForWork.cs" />
     <Compile Include="menu.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
@@ -97,7 +99,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PttWebReposity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ReposityBase.cs" />
+    <Compile Include="RepositoryBase.cs" />
+    <Compile Include="UnitForWork.cs" />
     <Compile Include="user.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
