@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.3.3.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
@@ -75,6 +78,8 @@
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IAutoMapper.cs" />
+    <Compile Include="Interface\IRepository.cs" />
+    <Compile Include="Interface\IUnitForWork.cs" />
     <Compile Include="menu.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
@@ -97,7 +102,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PttWebReposity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ReposityBase.cs" />
+    <Compile Include="RepositoryBase.cs" />
+    <Compile Include="UnitForWork.cs" />
     <Compile Include="user.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
