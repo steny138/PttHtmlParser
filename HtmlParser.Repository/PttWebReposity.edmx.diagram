@@ -7,9 +7,11 @@
       <Diagram DiagramId="88f8e868fc894cf4ad1efe1412fcc39e" Name="圖表1">
         <EntityTypeShape EntityType="HtmlParser.Respository.class" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HtmlParser.Respository.group" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HtmlParser.Respository.menu" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HtmlParser.Respository.muti_code" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HtmlParser.Respository.user" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HtmlParser.Respository.board" Width="1.5" PointX="4.75" PointY="0.875" />
+        <EntityTypeShape EntityType="HtmlParser.Respository.theme" Width="1.5" PointX="6.625" PointY="0.625" />
+        <EntityTypeShape EntityType="HtmlParser.Respository.push" Width="1.5" PointX="8.875" PointY="1.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

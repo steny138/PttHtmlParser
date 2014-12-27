@@ -12,7 +12,7 @@ namespace HtmlParser.Repository
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
+    
     public partial class PttBigdataEntities : DbContext
     {
         public PttBigdataEntities()
@@ -27,8 +27,10 @@ namespace HtmlParser.Repository
     
         public DbSet<@class> @class { get; set; }
         public DbSet<group> group { get; set; }
-        public DbSet<menu> menu { get; set; }
         public DbSet<muti_code> muti_code { get; set; }
         public DbSet<user> user { get; set; }
+        public DbSet<board> board { get; set; }
+        public DbSet<theme> theme { get; set; }
+        public DbSet<push> push { get; set; }
     }
 }

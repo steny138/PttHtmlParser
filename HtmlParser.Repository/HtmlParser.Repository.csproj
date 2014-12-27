@@ -70,19 +70,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="board.cs">
+      <DependentUpon>PttWebReposity.tt</DependentUpon>
+    </Compile>
     <Compile Include="class.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
     <Compile Include="Configuration\ClassConfiguration.cs" />
+    <Compile Include="Configuration\BoardConfiguration.cs" />
+    <Compile Include="Configuration\ThemeConfiguration.cs" />
+    <Compile Include="Configuration\PushConfiguration.cs" />
+    <Compile Include="Configuration\GroupConfiguration.cs" />
+    <Compile Include="DatabaseFactory.cs" />
     <Compile Include="group.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
     <Compile Include="Interface\IAutoMapper.cs" />
+    <Compile Include="Interface\IDataBaseFactory.cs" />
     <Compile Include="Interface\IRepository.cs" />
-    <Compile Include="Interface\IUnitForWork.cs" />
-    <Compile Include="menu.cs">
-      <DependentUpon>PttWebReposity.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="muti_code.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
@@ -102,8 +108,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PttWebReposity.edmx</DependentUpon>
     </Compile>
+    <Compile Include="push.cs">
+      <DependentUpon>PttWebReposity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PttClassRepository.cs" />
+    <Compile Include="Repositories\PttBoardRepository.cs" />
+    <Compile Include="Repositories\PttThemeRepository.cs" />
+    <Compile Include="Repositories\PttGroupRepository.cs" />
     <Compile Include="RepositoryBase.cs" />
-    <Compile Include="UnitForWork.cs" />
+    <Compile Include="theme.cs">
+      <DependentUpon>PttWebReposity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="user.cs">
       <DependentUpon>PttWebReposity.tt</DependentUpon>
     </Compile>
@@ -132,9 +148,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\HtmlParser.Model\HtmlParser.Model.csproj">
       <Project>{9d0e9625-8298-405d-962b-ec464d8d547d}</Project>

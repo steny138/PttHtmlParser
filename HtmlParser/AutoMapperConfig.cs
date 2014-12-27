@@ -21,6 +21,10 @@ namespace HtmlParser.Console
             AutoMapper.Mapper.Initialize(x =>
             {
                 x.AddProfile<HtmlParser.Repository.Configuration.ClassConfiguration>();
+                x.AddProfile<HtmlParser.Repository.Configuration.GroupConfiguration>();
+                x.AddProfile<HtmlParser.Repository.Configuration.BoardConfiguration>();
+                x.AddProfile<HtmlParser.Repository.Configuration.ThemeConfiguration>();
+                x.AddProfile<HtmlParser.Repository.Configuration.PushConfiguration>();
             });
         }
     }

@@ -4,21 +4,36 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HtmlParser.Respository.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HtmlParser.Respository.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="HtmlParserRespositoryStoreContainer">
+          <EntitySet Name="board" EntityType="HtmlParser.Respository.Store.board" store:Type="Tables" Schema="ptt_bigdata" />
           <EntitySet Name="class" EntityType="HtmlParser.Respository.Store.class" store:Type="Tables" Schema="ptt_bigdata" />
           <EntitySet Name="group" EntityType="HtmlParser.Respository.Store.group" store:Type="Tables" Schema="ptt_bigdata" />
-          <EntitySet Name="menu" EntityType="HtmlParser.Respository.Store.menu" store:Type="Tables" Schema="ptt_bigdata" />
           <EntitySet Name="muti_code" EntityType="HtmlParser.Respository.Store.muti_code" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="push" EntityType="HtmlParser.Respository.Store.push" store:Type="Tables" Schema="ptt_bigdata" />
+          <EntitySet Name="theme" EntityType="HtmlParser.Respository.Store.theme" store:Type="Tables" Schema="ptt_bigdata" />
           <EntitySet Name="user" EntityType="HtmlParser.Respository.Store.user" store:Type="Tables" Schema="ptt_bigdata" />
         </EntityContainer>
+        <EntityType Name="board">
+          <Key>
+            <PropertyRef Name="board_id" />
+          </Key>
+          <Property Name="board_id" Type="int" Nullable="false" />
+          <Property Name="board_type" Type="varchar" MaxLength="10" />
+          <Property Name="board_code" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="board_name" Type="varchar" MaxLength="100" />
+          <Property Name="board_master" Type="varchar" MaxLength="25" />
+          <Property Name="board_desc" Type="varchar" MaxLength="400" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="board_popularity" Type="int" />
+        </EntityType>
         <EntityType Name="class">
           <Key>
             <PropertyRef Name="class_Id" />
           </Key>
           <Property Name="class_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="class_name" Type="varchar" Nullable="false" MaxLength="45" />
-          <Property Name="class_dname" Type="varchar" MaxLength="100" />
+          <Property Name="class_code" Type="varchar" Nullable="false" MaxLength="45" />
+          <Property Name="class_name" Type="varchar" MaxLength="100" />
           <Property Name="class_type" Type="varchar" MaxLength="10" />
           <Property Name="class_attr" Type="varchar" MaxLength="100" />
           <Property Name="class_desc" Type="varchar" MaxLength="400" />
@@ -29,22 +44,12 @@
           </Key>
           <Property Name="group_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="group_type" Type="varchar" MaxLength="10" />
-          <Property Name="group_name" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="group_dname" Type="varchar" MaxLength="100" />
+          <Property Name="group_code" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="group_name" Type="varchar" MaxLength="100" />
           <Property Name="group_master" Type="varchar" MaxLength="25" />
           <Property Name="group_desc" Type="varchar" MaxLength="400" />
           <Property Name="group_photo" Type="varchar" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="menu">
-          <Key>
-            <PropertyRef Name="menu_id" />
-          </Key>
-          <Property Name="menu_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="menu_type" Type="varchar" MaxLength="10" />
-          <Property Name="menu_name" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="menu_dname" Type="varchar" MaxLength="100" />
-          <Property Name="menu_master" Type="varchar" MaxLength="25" />
-          <Property Name="menu_desc" Type="varchar" MaxLength="400" />
+          <Property Name="group_previous_id" Type="int" />
         </EntityType>
         <EntityType Name="muti_code">
           <Key>
@@ -60,6 +65,33 @@
           <Property Name="code_mstaff" Type="varchar" MaxLength="25" />
           <Property Name="code_mdate" Type="datetime" />
         </EntityType>
+        <EntityType Name="push">
+          <Key>
+            <PropertyRef Name="push_id" />
+          </Key>
+          <Property Name="push_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="theme_id" Type="int" Nullable="false" />
+          <Property Name="push_type" Type="varchar" MaxLength="1" />
+          <Property Name="push_author" Type="varchar" MaxLength="20" />
+          <Property Name="push_content" Type="varchar" MaxLength="200" />
+          <Property Name="push_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="board_id" Type="int" Nullable="false" />
+          <Property Name="theme_code" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="theme_name" Type="varchar" MaxLength="100" />
+          <Property Name="theme_author" Type="varchar" MaxLength="25" />
+          <Property Name="theme_title" Type="varchar" MaxLength="100" />
+          <Property Name="theme_content" Type="varchar" MaxLength="10000" />
+          <Property Name="theme_popularity" Type="int" />
+          <Property Name="theme_issue_date" Type="datetime" />
+          <Property Name="theme_url" Type="varchar" MaxLength="50" />
+          <Property Name="theme_desc" Type="varchar" MaxLength="400" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="userId" />
@@ -73,17 +105,18 @@
           <Property Name="modify_time" Type="datetime" StoreGeneratedPattern="Identity" />
           <Property Name="modify_staff" Type="varchar" MaxLength="25" />
         </EntityType>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HtmlParser.Respository" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PttBigdataEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="class" EntityType="HtmlParser.Respository.class" />
           <EntitySet Name="group" EntityType="HtmlParser.Respository.group" />
-          <EntitySet Name="menu" EntityType="HtmlParser.Respository.menu" />
           <EntitySet Name="muti_code" EntityType="HtmlParser.Respository.muti_code" />
           <EntitySet Name="user" EntityType="HtmlParser.Respository.user" />
+          <EntitySet Name="board" EntityType="HtmlParser.Respository.board" />
+          <EntitySet Name="theme" EntityType="HtmlParser.Respository.theme" />
+          <EntitySet Name="push" EntityType="HtmlParser.Respository.push" />
         </EntityContainer>
         <EntityType Name="class">
           <Key>
@@ -91,10 +124,10 @@
           </Key>
           <Property Name="class_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="class_name" Type="String" Nullable="false" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="class_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="class_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="class_attr" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="class_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="class_code" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="group">
           <Key>
@@ -103,21 +136,11 @@
           <Property Name="group_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="group_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="group_name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="group_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="group_master" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
           <Property Name="group_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
           <Property Name="group_photo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="menu">
-          <Key>
-            <PropertyRef Name="menu_id" />
-          </Key>
-          <Property Name="menu_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="menu_type" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="menu_name" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="menu_dname" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="menu_master" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
-          <Property Name="menu_desc" Type="String" MaxLength="400" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="group_previous_id" />
+          <Property Type="String" Name="group_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="muti_code">
           <Key>
@@ -146,6 +169,46 @@
           <Property Name="modify_time" Type="DateTime" p1:StoreGeneratedPattern="Identity" />
           <Property Name="modify_staff" Type="String" MaxLength="25" Unicode="false" FixedLength="false" />
         </EntityType>
+        <EntityType Name="board">
+          <Key>
+            <PropertyRef Name="board_id" />
+          </Key>
+          <Property Type="Int32" Name="board_id" Nullable="false" />
+          <Property Type="String" Name="board_type" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="board_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="board_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="board_master" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="board_desc" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="group_id" />
+          <Property Type="Int32" Name="board_popularity" />
+        </EntityType>
+        <EntityType Name="theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Type="Int32" Name="theme_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="board_id" Nullable="false" />
+          <Property Type="String" Name="theme_code" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="theme_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="theme_author" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="theme_title" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="theme_content" MaxLength="10000" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="theme_popularity" />
+          <Property Type="DateTime" Name="theme_issue_date" />
+          <Property Type="String" Name="theme_url" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="theme_desc" MaxLength="400" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="push">
+          <Key>
+            <PropertyRef Name="push_id" />
+          </Key>
+          <Property Type="Int32" Name="push_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="theme_id" Nullable="false" />
+          <Property Type="String" Name="push_type" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="push_author" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="push_content" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="push_date" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -155,9 +218,9 @@
           <EntitySetMapping Name="class">
             <EntityTypeMapping TypeName="HtmlParser.Respository.class">
               <MappingFragment StoreEntitySet="class">
+                <ScalarProperty Name="class_code" ColumnName="class_code" />
                 <ScalarProperty Name="class_Id" ColumnName="class_Id" />
                 <ScalarProperty Name="class_name" ColumnName="class_name" />
-                <ScalarProperty Name="class_dname" ColumnName="class_dname" />
                 <ScalarProperty Name="class_type" ColumnName="class_type" />
                 <ScalarProperty Name="class_attr" ColumnName="class_attr" />
                 <ScalarProperty Name="class_desc" ColumnName="class_desc" />
@@ -167,25 +230,14 @@
           <EntitySetMapping Name="group">
             <EntityTypeMapping TypeName="HtmlParser.Respository.group">
               <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="group_code" ColumnName="group_code" />
+                <ScalarProperty Name="group_previous_id" ColumnName="group_previous_id" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="group_type" ColumnName="group_type" />
                 <ScalarProperty Name="group_name" ColumnName="group_name" />
-                <ScalarProperty Name="group_dname" ColumnName="group_dname" />
                 <ScalarProperty Name="group_master" ColumnName="group_master" />
                 <ScalarProperty Name="group_desc" ColumnName="group_desc" />
                 <ScalarProperty Name="group_photo" ColumnName="group_photo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="menu">
-            <EntityTypeMapping TypeName="HtmlParser.Respository.menu">
-              <MappingFragment StoreEntitySet="menu">
-                <ScalarProperty Name="menu_id" ColumnName="menu_id" />
-                <ScalarProperty Name="menu_type" ColumnName="menu_type" />
-                <ScalarProperty Name="menu_name" ColumnName="menu_name" />
-                <ScalarProperty Name="menu_dname" ColumnName="menu_dname" />
-                <ScalarProperty Name="menu_master" ColumnName="menu_master" />
-                <ScalarProperty Name="menu_desc" ColumnName="menu_desc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -213,6 +265,49 @@
                 <ScalarProperty Name="create_staff" ColumnName="create_staff" />
                 <ScalarProperty Name="modify_time" ColumnName="modify_time" />
                 <ScalarProperty Name="modify_staff" ColumnName="modify_staff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="board">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.board">
+              <MappingFragment StoreEntitySet="board">
+                <ScalarProperty Name="board_popularity" ColumnName="board_popularity" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="board_desc" ColumnName="board_desc" />
+                <ScalarProperty Name="board_master" ColumnName="board_master" />
+                <ScalarProperty Name="board_name" ColumnName="board_name" />
+                <ScalarProperty Name="board_code" ColumnName="board_code" />
+                <ScalarProperty Name="board_type" ColumnName="board_type" />
+                <ScalarProperty Name="board_id" ColumnName="board_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="theme">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.theme">
+              <MappingFragment StoreEntitySet="theme">
+                <ScalarProperty Name="theme_desc" ColumnName="theme_desc" />
+                <ScalarProperty Name="theme_url" ColumnName="theme_url" />
+                <ScalarProperty Name="theme_issue_date" ColumnName="theme_issue_date" />
+                <ScalarProperty Name="theme_popularity" ColumnName="theme_popularity" />
+                <ScalarProperty Name="theme_content" ColumnName="theme_content" />
+                <ScalarProperty Name="theme_title" ColumnName="theme_title" />
+                <ScalarProperty Name="theme_author" ColumnName="theme_author" />
+                <ScalarProperty Name="theme_name" ColumnName="theme_name" />
+                <ScalarProperty Name="theme_code" ColumnName="theme_code" />
+                <ScalarProperty Name="board_id" ColumnName="board_id" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="push">
+            <EntityTypeMapping TypeName="HtmlParser.Respository.push">
+              <MappingFragment StoreEntitySet="push">
+                <ScalarProperty Name="push_date" ColumnName="push_date" />
+                <ScalarProperty Name="push_content" ColumnName="push_content" />
+                <ScalarProperty Name="push_author" ColumnName="push_author" />
+                <ScalarProperty Name="push_type" ColumnName="push_type" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+                <ScalarProperty Name="push_id" ColumnName="push_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

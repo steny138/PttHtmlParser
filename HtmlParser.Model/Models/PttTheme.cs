@@ -47,12 +47,16 @@ namespace HtmlParser.Model
     {
         public PttThemePush()
         {
+            this.themeId = 0;
+            this.id = 0;
             this.author = string.Empty;
             this.content = string.Empty;
             this.pushType = PushType.normal;
             this.pushDate = DateTime.MinValue;
         }
         public PushType pushType { get; set; }
+        public int themeId { get; set; }
+        public int id { get; set; }
         public string author { get; set; }
         public string content { get; set; }
         public DateTime pushDate { get; set; }

@@ -12,13 +12,15 @@ namespace HtmlParser.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class @class
+    public partial class board
     {
-        public int class_Id { get; set; }
-        public string class_name { get; set; }
-        public string class_type { get; set; }
-        public string class_attr { get; set; }
-        public string class_desc { get; set; }
-        public string class_code { get; set; }
+        public int board_id { get; set; }
+        public string board_type { get; set; }
+        public string board_code { get; set; }
+        public string board_name { get; set; }
+        public string board_master { get; set; }
+        public string board_desc { get; set; }
+        public Nullable<int> group_id { get; set; }
+        public Nullable<int> board_popularity { get; set; }
     }
 }

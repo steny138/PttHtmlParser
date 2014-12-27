@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HtmlParser.Repository.Interface
 {
-    interface IRepository<T> where T: class
+    public interface IRepository<T> where T: class
     {
         /// <summary>
         /// 回傳整個資料表結果

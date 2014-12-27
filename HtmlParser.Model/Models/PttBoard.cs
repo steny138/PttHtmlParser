@@ -10,6 +10,7 @@ namespace HtmlParser.Model
     {
         public PttBoard()
         {
+            this.groupId = 0;
             this.id = 0;
             this.code = string.Empty;
             this.name = string.Empty;
@@ -18,6 +19,7 @@ namespace HtmlParser.Model
             this.popularity = string.Empty;
             this.issueDate = DateTime.MinValue;
         }
+        public int groupId { get; set; }
         public int id { get; set; }
         public string code { get; set; }
         public string name { get; set; }

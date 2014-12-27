@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HtmlParser.Repository.Interface;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,14 +9,25 @@ using System.Threading.Tasks;
 
 namespace HtmlParser.Repository
 {
-    public class RepositoryBase<T> :Interface.IRepository<T> where T : class
+    public class RepositoryBase<T>  where T : class
     {
-        private PttBigdataEntities _dbContext;
-        private readonly IDbSet<T> dbset;
-        protected RepositoryBase(PttBigdataEntities dataContext)
+        public PttBigdataEntities _dbContext;
+        public readonly IDbSet<T> dbset;
+        protected RepositoryBase(IDatabaseFactory databaseFactory)
         {
-            _dbContext = dataContext;
-            dbset = _dbContext.Set<T>();
+            DatabaseFactory = databaseFactory;
+            dbset = DataContext.Set<T>();
+        }
+
+        public IDatabaseFactory DatabaseFactory
+        {
+            get;
+            private set;
+        }
+
+        public PttBigdataEntities DataContext
+        {
+            get { return _dbContext ?? (_dbContext = DatabaseFactory.Get()); }
         }
 
         #region IRepository<T> Members

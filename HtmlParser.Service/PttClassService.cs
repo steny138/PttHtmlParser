@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using HtmlParser.Model;
+using HtmlParser.Repository.Interface;
+using HtmlParser.Repository.Repositories;
+using HtmlParser.Repository;
 
 namespace HtmlParser.Service
 {
@@ -15,11 +18,24 @@ namespace HtmlParser.Service
         /// <param name="doc">原始資料</param>
         /// <returns>分類看版物件列表</returns>
         List<PttClass> parseClass(HtmlDocument doc);
+
+        /// <summary>
+        /// 新增By分類列表的Id
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        int Add(@class pClassDb);
     }
 
     public class PttClassService : IPttClassService
     {
-
+        public readonly IPttClassRepository _pttClassRepository;
+        private readonly IUnitOfWork _unitForWork;
+        public PttClassService(IPttClassRepository pttClassRepository, IUnitOfWork unitOfWork)
+        {
+            this._pttClassRepository = pttClassRepository;
+            this._unitForWork = unitOfWork;
+        }
         #region IPttClassService Members
 
         public List<PttClass> parseClass(HtmlDocument doc)
@@ -59,6 +75,18 @@ namespace HtmlParser.Service
             return result;
         }
 
+        public int Add(@class pClassDb)
+        {
+            int result = 0;
+            if (_pttClassRepository.GetMany(x => x.class_name == pClassDb.class_name).Count() == 0)
+            {
+                
+                _pttClassRepository.Add(pClassDb);
+                _unitForWork.Save();
+                result = 1;
+            }
+            return result;
+        }
         #endregion
     }
 }

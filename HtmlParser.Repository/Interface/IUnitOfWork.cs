@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HtmlParser.Repository.Interface
 {
-    interface IUnitForWork : IDisposable  
+    public interface IUnitOfWork : IDisposable  
     {
         /// <summary>
         /// Commit Save

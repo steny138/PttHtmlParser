@@ -17,9 +17,10 @@ namespace HtmlParser.Repository
         public int group_id { get; set; }
         public string group_type { get; set; }
         public string group_name { get; set; }
-        public string group_dname { get; set; }
         public string group_master { get; set; }
         public string group_desc { get; set; }
         public string group_photo { get; set; }
+        public Nullable<int> group_previous_id { get; set; }
+        public string group_code { get; set; }
     }
 }

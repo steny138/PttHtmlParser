@@ -7,6 +7,7 @@ using HtmlParser.Model;
 using HtmlParser.Service;
 using HtmlAgilityPack;
 using HtmlParser.Core;
+using Autofac;
 
 namespace HtmlParser.Console
 {
@@ -18,12 +19,12 @@ namespace HtmlParser.Console
         {
             //Initital
             AutoMapperConfig.Configure();
-            AutofacConfig.Bootstrapper();
-
-            IPttClassService cService = new PttClassService();
-            IPttGroupService gService = new PttGroupService();
-            IPttBoardService bService = new PttBoardService();
-            IPttThemeService tService = new PttThemeService();
+            var container = AutofacConfig.Bootstrapper();
+            var scope = container.BeginLifetimeScope();
+            IPttClassService cService = scope.Resolve<IPttClassService>();
+            IPttGroupService gService = scope.Resolve<IPttGroupService>();
+            IPttBoardService bService = scope.Resolve<IPttBoardService>();
+            IPttThemeService tService = scope.Resolve<IPttThemeService>();
             try
             {
                 #region test code
@@ -121,18 +122,20 @@ namespace HtmlParser.Console
                 {
                     //可以先寫入CLASS
                     var pClassDb = AutoMapper.Mapper.Map<HtmlParser.Repository.@class>(pClass);
-                    using (var db = new HtmlParser.Repository.PttBigdataEntities())
+
+                    int result = cService.Add(pClassDb);
+
+                    if (result == 1)
                     {
-                        if (db.@class.Where(x => x.class_name == pClassDb.class_name).Count() == 0)
-                        {
-                            db.@class.Add(pClassDb);
-                            db.SaveChanges();
-                        }
+                        PttGroupCollection collection = gService.parseGroup(
+                            Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, pClass.code),
+                                Encoding.Default));
                     }
-                    PttGroupCollection collection = gService.parseGroup(
-                        Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, pClass.code),
-                            Encoding.Default));
-                    
+                    else
+                    {
+                        System.Console.WriteLine("Insert Class {0} Error", pClass.code);
+                    }
+
                     //foreach (PttGroup pGroup in collection.groups)
                     //{
                     //    Console.WriteLine("{0} : {1} - {2}", pGroup.code, pGroup.name.Trim(), pGroup.desc);
@@ -151,6 +154,28 @@ namespace HtmlParser.Console
                 System.Console.WriteLine("發生錯誤!!");
             }
             System.Console.ReadLine(); 
+
+        }
+
+
+        public static void AddGroupCollection(PttGroupCollection collection, IPttGroupService gService)
+        {
+
+            foreach (PttBoard board in collection.boards)
+            {
+                var pBoardDb = AutoMapper.Mapper.Map<HtmlParser.Repository.board>(board);
+                //gService.Add(pBoardDb);
+            }
+            foreach (PttGroup group in collection.groups)
+            {
+                var pGroupDb = AutoMapper.Mapper.Map<HtmlParser.Repository.group>(group);
+                ///gService.Add(pGroupDb);
+                PttGroupCollection newCollection = gService.parseGroup(
+                        Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, group.code),
+                            Encoding.Default));
+                AddGroupCollection(newCollection, gService);
+            }
+
 
         }
     }

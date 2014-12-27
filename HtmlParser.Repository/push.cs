@@ -12,13 +12,13 @@ namespace HtmlParser.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class menu
+    public partial class push
     {
-        public int menu_id { get; set; }
-        public string menu_type { get; set; }
-        public string menu_name { get; set; }
-        public string menu_dname { get; set; }
-        public string menu_master { get; set; }
-        public string menu_desc { get; set; }
+        public int push_id { get; set; }
+        public int theme_id { get; set; }
+        public string push_type { get; set; }
+        public string push_author { get; set; }
+        public string push_content { get; set; }
+        public Nullable<System.DateTime> push_date { get; set; }
     }
 }

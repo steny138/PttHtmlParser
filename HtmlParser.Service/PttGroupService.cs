@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using HtmlParser.Model;
+using HtmlParser.Repository;
+using HtmlParser.Core;
 
 namespace HtmlParser.Service
 {
@@ -15,11 +17,18 @@ namespace HtmlParser.Service
         /// <param name="doc">原始資料</param>
         /// <returns>分類看版物件列表</returns>
         PttGroupCollection parseGroup(HtmlDocument doc);
+
+        /// <summary>
+        /// 新增By的Id
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        int Add(group pGroupDb);
     }
 
     public class PttGroupService : IPttGroupService
     {
-
+        private const string PTT_GROUP_URL_FORMAT = "https://www.ptt.cc/bbs/{0}.html";
         #region IPttGroupService Members
 
         public PttGroupCollection parseGroup(HtmlDocument doc)
@@ -88,6 +97,15 @@ namespace HtmlParser.Service
             return result;
         }
 
+        
+
+        public int Add(group pGroupDb)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
+
+
+        
     }
 }
