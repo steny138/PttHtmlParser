@@ -7,6 +7,10 @@ using HtmlParser.Model;
 using HtmlAgilityPack;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using HtmlParser.Repository;
+using HtmlParser.Repository.Repositories;
+using HtmlParser.Repository.Interface;
+
 namespace HtmlParser.Service
 {
     public interface IPttBoardService
@@ -35,13 +39,27 @@ namespace HtmlParser.Service
         /// <summary>取得看板資訊</summary>
         PttTheme parseBoard(HtmlNode node);
 
+        /// <summary>
+        /// 新增 Board
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        int Add(board pBoardDb);
+
+
 
     }
     public class PttBoardService : IPttBoardService
     {
         private const string PTT_BOARD_URL_FORMAT = "https://www.ptt.cc/bbs/{0}/index{1}.html";
         private readonly string[] DATETIME_LIST = { "M/dd", "MM/dd", "MM/d", "M/d" };
-        
+        private readonly IPttBoardRepository _pttBoardRepository;
+        private readonly IUnitOfWork _unitForWork;
+        public PttBoardService(IPttBoardRepository pttBoardRepository, IUnitOfWork unitOfWork)
+        {
+            this._pttBoardRepository = pttBoardRepository;
+            this._unitForWork = unitOfWork;
+        }
         public List<PttTheme> parse(string boardName)
         {
             return parse(boardName, null, null, 0, 0);
@@ -185,8 +203,17 @@ namespace HtmlParser.Service
             return result;
         }
 
+        public int Add(board pBoardDb)
+        {
+            int result = 0;
+            if (_pttBoardRepository.GetMany(x => x.board_code == pBoardDb.board_code).Count() == 0)
+            {
 
-
-        
+                _pttBoardRepository.Add(pBoardDb);
+                _unitForWork.Save();
+                result = 1;
+            }
+            return result;
+        }
     }
 }

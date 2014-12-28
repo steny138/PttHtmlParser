@@ -8,6 +8,8 @@ using HtmlAgilityPack;
 using HtmlParser.Model;
 using HtmlParser.Repository;
 using HtmlParser.Core;
+using HtmlParser.Repository.Interface;
+using HtmlParser.Repository.Repositories;
 
 namespace HtmlParser.Service
 {
@@ -19,7 +21,7 @@ namespace HtmlParser.Service
         PttGroupCollection parseGroup(HtmlDocument doc);
 
         /// <summary>
-        /// 新增By的Id
+        /// 新增 Group
         /// </summary>
         /// <param name="className"></param>
         /// <returns></returns>
@@ -29,7 +31,16 @@ namespace HtmlParser.Service
     public class PttGroupService : IPttGroupService
     {
         private const string PTT_GROUP_URL_FORMAT = "https://www.ptt.cc/bbs/{0}.html";
+        private readonly IPttGroupRepository _pttGroupRepository;
+        private readonly IUnitOfWork _unitForWork;
+        public PttGroupService(IPttGroupRepository pttGroupRepository, IUnitOfWork unitOfWork)
+        {
+            this._pttGroupRepository = pttGroupRepository;
+            this._unitForWork = unitOfWork;
+        }
+
         #region IPttGroupService Members
+
 
         public PttGroupCollection parseGroup(HtmlDocument doc)
         {
@@ -97,11 +108,17 @@ namespace HtmlParser.Service
             return result;
         }
 
-        
-
         public int Add(group pGroupDb)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            if (_pttGroupRepository.GetMany(x => x.group_code == pGroupDb.group_code).Count() == 0)
+            {
+
+                _pttGroupRepository.Add(pGroupDb);
+                _unitForWork.Save();
+                result = 1;
+            }
+            return result;
         }
         #endregion
 

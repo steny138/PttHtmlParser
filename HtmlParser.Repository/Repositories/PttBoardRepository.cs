@@ -7,11 +7,11 @@ using HtmlParser.Repository;
 using HtmlParser.Repository.Interface;
 namespace HtmlParser.Repository.Repositories
 {
-    public interface IPttBoardRepository : Interface.IRepository<@class>
+    public interface IPttBoardRepository : Interface.IRepository<board>
     {
 
     }
-    public class PttBoardRepository :RepositoryBase<@class>, IPttBoardRepository
+    public class PttBoardRepository : RepositoryBase<board>, IPttBoardRepository
     {
         public PttBoardRepository(IDatabaseFactory databaseFactory)
             : base(databaseFactory)

@@ -29,7 +29,7 @@ namespace HtmlParser.Service
 
     public class PttClassService : IPttClassService
     {
-        public readonly IPttClassRepository _pttClassRepository;
+        private readonly IPttClassRepository _pttClassRepository;
         private readonly IUnitOfWork _unitForWork;
         public PttClassService(IPttClassRepository pttClassRepository, IUnitOfWork unitOfWork)
         {

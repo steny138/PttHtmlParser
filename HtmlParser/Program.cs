@@ -130,6 +130,7 @@ namespace HtmlParser.Console
                         PttGroupCollection collection = gService.parseGroup(
                             Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, pClass.code),
                                 Encoding.Default));
+                        AddGroupCollection(collection, gService, bService);
                     }
                     else
                     {
@@ -158,13 +159,13 @@ namespace HtmlParser.Console
         }
 
 
-        public static void AddGroupCollection(PttGroupCollection collection, IPttGroupService gService)
+        public static void AddGroupCollection(PttGroupCollection collection, IPttGroupService gService, IPttBoardService bService)
         {
 
             foreach (PttBoard board in collection.boards)
             {
                 var pBoardDb = AutoMapper.Mapper.Map<HtmlParser.Repository.board>(board);
-                //gService.Add(pBoardDb);
+                bService.Add(pBoardDb);
             }
             foreach (PttGroup group in collection.groups)
             {
@@ -173,10 +174,8 @@ namespace HtmlParser.Console
                 PttGroupCollection newCollection = gService.parseGroup(
                         Utility.downLoadHtmlDoc(string.Format(PTT_URL_FORMAT, group.code),
                             Encoding.Default));
-                AddGroupCollection(newCollection, gService);
+                AddGroupCollection(newCollection, gService, bService);
             }
-
-
         }
     }
 }

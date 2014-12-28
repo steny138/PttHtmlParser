@@ -7,6 +7,9 @@ using HtmlAgilityPack;
 using HtmlParser.Core;
 using HtmlParser.Model;
 using System.Globalization;
+using HtmlParser.Repository;
+using HtmlParser.Repository.Repositories;
+using HtmlParser.Repository.Interface;
 
 
 namespace HtmlParser.Service
@@ -22,10 +25,24 @@ namespace HtmlParser.Service
         /// <param name="initTheme">目的文章物件</param>
         /// <returns>指定文章物件</returns>
         PttTheme parse(PttTheme initTheme);
+
+        /// <summary>
+        /// 新增 Theme
+        /// </summary>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        int Add(theme pGroupDb);
     }
     public class PttThemeService : IPttThemeService
     {
         private const string PTT_THEME_URL_FORMAT = "https://www.ptt.cc/bbs/{0}/{1}.html";
+        private readonly IPttThemeRepository _pttThemeRepository;
+        private readonly IUnitOfWork _unitForWork;
+        public PttThemeService(IPttThemeRepository pttThemeRepository, IUnitOfWork unitOfWork)
+        {
+            this._pttThemeRepository = pttThemeRepository;
+            this._unitForWork = unitOfWork;
+        }
 
         public PttTheme parse(string boardName, string themeId)
         {
@@ -111,6 +128,18 @@ namespace HtmlParser.Service
                     return PushType.normal;
             }
         }
-        
+
+        public int Add(theme pThemeDb)
+        {
+            int result = 0;
+            if (_pttThemeRepository.GetMany(x => x.theme_code == pThemeDb.theme_code).Count() == 0)
+            {
+
+                _pttThemeRepository.Add(pThemeDb);
+                _unitForWork.Save();
+                result = 1;
+            }
+            return result;
+        }
     }
 }
